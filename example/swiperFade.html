@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				height: 100%;
+				width: 100%;
+			}
+			#root{
+				height: 500px;
+				width: 100%;
+				overflow: hidden;
+			}
+			#root>div{
+				height: 500px;
+				width: 100%;
+				position: relative;
+			}
+			#root>div>div{
+				  height:  500px;
+				  width: 100%;
+				  position: relative;
+				  left: 0;
+				  top: 0;
+			}
+			#root img{
+				display: block;
+				height: 500px;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root">
+			<div>
+				<div><img src="https://pic3.zhimg.com/80/b71881430cb7203dae93b334c35e15da_hd.jpg"/></div>
+				<div><img src="https://pic3.zhimg.com/80/bbfb7da17d1f10f6ba986eee81f259a9_hd.jpg"/></div>
+				<div><img src="https://pic3.zhimg.com/80/v2-1899129a38053e64641c2244c8fdf06d_hd.jpg"/></div>
+				<div><img src="https://pic2.zhimg.com/80/0174340d394d61fb64b1cb03b1a7079d_hd.jpg"/></div>
+			</div>
+		</div>
+		<button id="btn0" style="margin: 50px auto;display:block;font-size:20px;height: 42px;width: 360px;">点击0按钮</button>
+		<button id="btn1" style="margin: 50px auto;display:block;font-size:20px;height: 42px;width: 360px;">点击1按钮</button>
+		<button id="btn2" style="margin: 50px auto;display:block;font-size:20px;height: 42px;width: 360px;">点击2按钮</button>
+		<button id="btn3" style="margin: 50px auto;display:block;font-size:20px;height: 42px;width: 360px;">点击3按钮</button>
+	</body>
+	<script src="addfade.js"></script>
+	<script>
+		window.onload = function(){
+			const swiper = new Swiper({
+				root:"#root",
+				effect:"fade",
+				loop:false,
+				auto:true,
+				direction:"horizontal",//"horizontal""vertical"
+				index:0,//默认第一张
+				callBack:function(index){
+					console.log("html",index)
+				}
+			})
+			document.getElementById("btn0").onclick = function(){
+				swiper.moveTo(0)
+			}
+			document.getElementById("btn1").onclick = function(){
+				swiper.moveTo(1)
+			}
+			document.getElementById("btn2").onclick = function(){
+				swiper.moveTo(2)
+			}
+			document.getElementById("btn3").onclick = function(){
+				swiper.moveTo(3)
+			}
+		}
+	</script>
+</html>
