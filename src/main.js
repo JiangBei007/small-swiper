@@ -1,5 +1,4 @@
-import Swiper from "./swiper.js"
+import Swiper from './index.js'
+export default Swiper;
 
-export default Swiper
-
-console.log(Swiper)
+window.Swiper = Swiper;

@@ -1,8 +1,8 @@
 {
   "name": "small-swiper",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "swiper",
+  "main": "src/main.js",
   "directories": {
     "example": "example"
   },
