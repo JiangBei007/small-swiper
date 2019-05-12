@@ -54,7 +54,7 @@
 ```javascript
 window.onload = function(){
 	const swiper = new Swiper({
-		root:"#root",
+		root:document.querySelector("#root"),
 		loop:true,
 		auto:false,
 		delayed:2000,
@@ -113,7 +113,7 @@ window.onload = function(){
 ```javascript
 window.onload = function(){
 	const swiper = new Swiper({
-		root:"#root",
+		root:document.querySelector("#root"),
 		loop:true,
 		auto:false,
 		delayed:2000,
@@ -161,7 +161,7 @@ window.onload = function(){
 ```javascript
 window.onload = function(){
 	const swiper = new Swiper({
-		root:"#root",
+		root:document.querySelector("#root"),
 		effect:"fade",
 		loop:false,
 		auto:true,

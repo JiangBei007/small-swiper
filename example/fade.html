@@ -57,12 +57,12 @@
 	<script>
 		window.onload = function(){
 			const swiper = new Swiper({
-				root:"#root",
+				root:document.querySelector("#root"),
 				effect:"fade",
 				loop:true,
 				auto:false,
 				direction:"horizontal",//"horizontal""vertical"
-				index:0,//默认第一张
+				index:1,//默认第一张
 				callBack:function(index){
 					console.log("html",index)
 				}
