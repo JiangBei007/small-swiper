@@ -121,7 +121,7 @@ class Swiper{
 	}
 	_start(ev){
 		const e = ev || event;
-		 e.preventDefault()
+		//e.preventDefault()
 		const touches = e.touches;
 		const target = touches ? touches[0] : e;
 		this._startingPoint = this._direction === "horizontal" ? target.clientX : target.clientY;
@@ -134,7 +134,7 @@ class Swiper{
 		  return
 		}
 		const e = ev || event;
-		// e.preventDefault();
+		e.preventDefault();
 		const touches = e.changedTouches;
 		const target = touches ? touches[0] : e;
 		const moved = this._direction === "horizontal" ? target.clientX-this._startingPoint : target.clientY-this._startingPoint;

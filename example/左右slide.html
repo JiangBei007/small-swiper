@@ -58,21 +58,13 @@
 		</div>
 		
 	</body>
-	<script src="./../dist/bundle.js"></script>
+	<script src="./../dist/SmallSwiper.umd.js"></script>
 	<script>
 		window.onload = function(){
+			const Swiper = SmallSwiper.SmallSwiper
 			const swiper = new Swiper({
 				root:document.querySelector("#root"),
-				loop:true,
-				auto:false,
-				delayed:2000,
-				effect:"slide",
-				direction:"horizontal",//"horizontal""vertical"
-				index:0,//默认第一张
-				callBack(index){
-					console.log("html",index)
-					document.title = "我是第"+index+"页"
-				}
+			
 			})
 			const btnList = document.getElementById("btns").getElementsByTagName("button");
 			

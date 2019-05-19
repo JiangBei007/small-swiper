@@ -1,5 +1,24 @@
-### 具体使用
 
+## 引用方式 1
+
+```html
+
+<script src="./SmallSwiper.umd.js"></script>
+
+```
+
+```javascript
+const Swiper = SmallSwiper.SmallSwiper;
+```
+
+## 引用方式 2
+```javascript
+const { SmallSwiper } = SmallSwiper.SmallSwiper;
+console.log(SmallSwiper)
+```
+
+
+### 具体使用
 ```html
 <div id="root">
 <div>
