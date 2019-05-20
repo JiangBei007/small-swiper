@@ -43,7 +43,7 @@
 	</head>
 	<body>
 		<div id="root">
-			<div>
+			<div id="list">
 				<div style="background: #21374B;"><img src="static/img/parcel.png"/></div>
 				<div style="background: #808080;"><img src="static/img/webpack.png"/></div>
 				<div style="background: #35495E;"><img src="static/img/vue.png"/></div>
@@ -82,6 +82,11 @@
 					}
 				})(i)
 			})
+			const list = document.getElementById("root");
+			list.onclick = function(){
+				console.log(11111111111)
+			}
+			
 		}
 	</script>
 </html>

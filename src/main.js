@@ -1,4 +1,6 @@
-import Swiper from './index.js'
+ import Swiper from './index.js'
+
 export default Swiper;
 
-window.Swiper = Swiper;
+window.Swiper = Swiper 
+/*export { default as SmallSwiper } from './index.js'*/

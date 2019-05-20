@@ -36,7 +36,7 @@ if (typeof window !== 'undefined') {
 }
 class Swiper{
 	constructor(options={}){
-		this._root = document.querySelector(options.root);
+		this._root = typeof(options.root)!=="string"?options.root:document.querySelector(options.root);
 		this._direction =  filterString(options.direction,['horizontal','vertical'])
 		this._loop = filter(options.loop);
 		this._auto = filter(options.auto);
@@ -84,9 +84,10 @@ class Swiper{
 					this._defaultIndex = -index
 				}
 				this._slideMove(this._defaultIndex*this._scaleSize)
+				this._numericalConversion(this._defaultIndex);
 			}
 			if(this._effect==='fade'){
-				//console.log(index)
+				this._callBack(index)
 			}
 			return index;
 			})(options.index);
@@ -97,7 +98,6 @@ class Swiper{
 			this._fadeMove(this.index,1);
 		}
 		
-		this._numericalConversion(this._defaultIndex);
 		if(this._auto){
 			this._timer = this._setInterval()
 		}
@@ -121,7 +121,8 @@ class Swiper{
 	}
 	_start(ev){
 		const e = ev || event;
-		 e.preventDefault()
+		e.preventDefault();
+		//console.log(e.type)
 		const touches = e.touches;
 		const target = touches ? touches[0] : e;
 		this._startingPoint = this._direction === "horizontal" ? target.clientX : target.clientY;
@@ -134,7 +135,10 @@ class Swiper{
 		  return
 		}
 		const e = ev || event;
-		// e.preventDefault();
+		if(e.type==="mousemove"){
+			console.log("经过滑动")
+			e.preventDefault();
+		}
 		const touches = e.changedTouches;
 		const target = touches ? touches[0] : e;
 		const moved = this._direction === "horizontal" ? target.clientX-this._startingPoint : target.clientY-this._startingPoint;
@@ -452,6 +456,7 @@ class Swiper{
 			const nowDistance = this._defaultIndex*this._scaleSize;
 			const targetDistance = index*this._scaleSize;
 			this._defaultIndex = index;
+			this._callBack(Math.abs(index));
 			this._startMove(nowDistance,targetDistance,s).then(()=>{
 				
 			})

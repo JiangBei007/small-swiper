@@ -1,5 +1,24 @@
-### 具体使用
 
+## 引用方式 1
+
+```html
+
+<script src="./SmallSwiper.umd.js"></script>
+
+```
+
+```javascript
+const Swiper = SmallSwiper.SmallSwiper;
+```
+
+## 引用方式 2
+```javascript
+const { SmallSwiper } = SmallSwiper.SmallSwiper;
+console.log(SmallSwiper)
+```
+
+
+### 具体使用
 ```html
 <div id="root">
 <div>
@@ -54,7 +73,7 @@
 ```javascript
 window.onload = function(){
 	const swiper = new Swiper({
-		root:"#root",
+		root:document.querySelector("#root"),
 		loop:true,
 		auto:false,
 		delayed:2000,
@@ -113,7 +132,7 @@ window.onload = function(){
 ```javascript
 window.onload = function(){
 	const swiper = new Swiper({
-		root:"#root",
+		root:document.querySelector("#root"),
 		loop:true,
 		auto:false,
 		delayed:2000,
@@ -161,7 +180,7 @@ window.onload = function(){
 ```javascript
 window.onload = function(){
 	const swiper = new Swiper({
-		root:"#root",
+		root:document.querySelector("#root"),
 		effect:"fade",
 		loop:false,
 		auto:true,
