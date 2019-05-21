@@ -50,6 +50,8 @@ class Swiper{
 		//this._moveDistance = 0;
 		//this._current = 0;
 		this._isTracking = false;
+		this._captureClick = false;
+		this._disabledHandSlideing = !!options.disabledHand;
 		this._timer = null;
 		this._defaultIndex = this._loop?-1:0;
 		//this._lastTouch = null;
@@ -60,13 +62,11 @@ class Swiper{
 		this._length = length;
 		this._scaleSize = this._direction === "horizontal"?children[0].getBoundingClientRect().width:children[0].getBoundingClientRect().height;
 		const fadeScaleSize = children[0].getBoundingClientRect().height;
-		//this._defaultMove = this._defaultIndex*this._scaleSize;
 		if(this._loop&&this._effect==='slide'){
 			const first = children[0].cloneNode(true);
 			const last = children[length-1].cloneNode(true);
 			this._slider.appendChild(first);
 			this._slider.insertBefore(last,children[0]);
-			//this._moveFun(this._defaultMove)
 		}
 		
 		this.index = ((index)=>{
@@ -102,43 +102,71 @@ class Swiper{
 			this._timer = this._setInterval()
 		}
 		const will = false;
-
+		const _this = this;
 		this._slider.addEventListener("touchstart",()=>this._start(),will);
 		this._slider.addEventListener("touchmove",()=>this._move(),will);
 		this._slider.addEventListener("touchend",()=>this._end(),will);
 		this._slider.addEventListener('mousedown', ()=>this._start(),will)
 		this._slider.addEventListener('mousemove', ()=>this._move(),will)
 		this._slider.addEventListener('mouseup', ()=>this._end(),will)
-		
+		this._slider.addEventListener('click', function(ev){
+			const e = ev || event;
+			if(_this._captureClick){
+				//On the PC side, default events are disabled in MouseDown events
+				//For example, there are jump links in sliding elements, and if default events are not prohibited, jumps are made.
+				e.preventDefault();
+				//In the event capture phase,
+				//When the mouse slides
+				//Prohibit click events to extend inward
+				e.stopPropagation();
+			}
+		},true)
+		this._stopDraggable()
+	}
+	_stopDraggable(){
+		//Prohibit dragging pictures while sliding on PC
+		const list = this._root.getElementsByTagName("img");
+		for (let i=0;i<list.length;i++) {
+			list[i].setAttribute("draggable",false)
+		}
 	}
 	_setInterval(){
 		return setInterval(()=>{
-				this._aotoplay()
-			},this._delayed)
+			this._aotoplay()
+		},this._delayed)
 	}
 	_clear(){
 		clearInterval(this._timer)
 	}
 	_start(ev){
 		const e = ev || event;
-		e.preventDefault();
-		//console.log(e.type)
+		if(e.type === "mousedown"){
+			//On the PC side, default events are disabled in MouseDown events
+			//For example, there are jump links in sliding elements, and if default events are not prohibited, jumps are made.
+			//360 Browser
+			e.preventDefault();
+		}
 		const touches = e.touches;
 		const target = touches ? touches[0] : e;
 		this._startingPoint = this._direction === "horizontal" ? target.clientX : target.clientY;
 		this._startTime = time();
-		this._clear()
+		this._clear();
 		this._isTracking = true;
+		this._captureClick = false;
+		if(this._disabledHandSlideing)return;
 	}
 	_move(ev){
 		if (!this._isTracking) {
+			//Disabled sliding after loosening the mouse
 		  return
 		}
 		const e = ev || event;
 		if(e.type==="mousemove"){
-			console.log("经过滑动")
-			e.preventDefault();
+			this._captureClick = true;
 		}
+		//Default events are prohibited when sliding events occur on the mobile side(For example, click events)
+		e.preventDefault();
+		if(this._disabledHandSlideing)return;
 		const touches = e.changedTouches;
 		const target = touches ? touches[0] : e;
 		const moved = this._direction === "horizontal" ? target.clientX-this._startingPoint : target.clientY-this._startingPoint;
@@ -163,8 +191,8 @@ class Swiper{
 		  return
 		}
 		this._isTracking = false;
+		if(this._disabledHandSlideing)return;
 		const e = ev || event;
-		//e.preventDefault();
 		const touches = e.changedTouches;
 		const target = touches ? touches[0] : e;
 		let moved = this._direction === "horizontal" ? target.clientX-this._startingPoint : target.clientY-this._startingPoint;
@@ -222,7 +250,6 @@ class Swiper{
 					if(this._defaultIndex>0){
 						this._defaultIndex = 0;
 					}
-					//this._numericalConversion(this._defaultIndex)
 					if(oldIndex>0&&this._defaultIndex>0){
 						//Solve Occasionally present   bug
 						return;
@@ -230,7 +257,6 @@ class Swiper{
 				}else{
 					if(this._defaultIndex<0){
 						this._defaultIndex+=1;
-						//this._numericalConversion(this._defaultIndex)
 					}else{
 						moved /= 3
 					}
@@ -245,7 +271,6 @@ class Swiper{
 						this._defaultIndex = -max
 						this._slideMove(this._defaultIndex*this._scaleSize)
 					}
-					//this._numericalConversion(this._defaultIndex)
 					if(oldIndex<=-max&&this._defaultIndex<=-max){
 						//Solve Occasionally present   bug
 						return;
@@ -253,7 +278,6 @@ class Swiper{
 				}else{
 					if(Math.abs(this._defaultIndex) < min){
 						this._defaultIndex-=1;
-						//this._numericalConversion(this._defaultIndex)
 					}else{
 						moved /= 3
 					}
@@ -359,7 +383,6 @@ class Swiper{
 		return this.index;
 	}
 	_moveFun(distance,moved){
-		//手动滑动的时候
 		if(!this._loop){
 			if(distance>=0){
 				distance /= 3
@@ -376,11 +399,9 @@ class Swiper{
 		}
 		if(distance>=0){
 			this._defaultIndex = -this._length;
-			//this._numericalConversion(this._defaultIndex)
 			this._slideMove(this._defaultIndex*this._scaleSize)
 		}else if(distance<=-((this._length+1)*this._scaleSize)){
 			this._defaultIndex = -1;
-			//this._numericalConversion(this._defaultIndex)
 			this._slideMove(this._defaultIndex*this._scaleSize)
 		}else{
 			this._slideMove(distance)
@@ -414,9 +435,9 @@ class Swiper{
 			}
 			return;
 		}
-		if(oldIndex===newIndex){
-			return;
-		}
+		
+		if(oldIndex===newIndex)return;
+		
 		if(this._loop){
 			if(index === min){
 				index = -length;
@@ -427,7 +448,7 @@ class Swiper{
 				const s = Math.abs(oldIndex-Math.abs(this._defaultIndex))*speed<100?100:Math.abs(oldIndex-Math.abs(this._defaultIndex))*speed;
 					
 				this._startMove(nowDistance,targetDistance,s).then(()=>{
-					//console.log(this._defaultIndex)
+					
 				})
 				return;
 			}
@@ -481,7 +502,6 @@ class Swiper{
 			}
 			if(num!==this.index){
 				this.index = num
-				//console.log("转换后231",this.index,num)
 			}
 				
 			this._callBack(this.index)
@@ -490,7 +510,6 @@ class Swiper{
 			num = Math.abs(index);
 			if(num!==this.index){
 				this.index = num
-				//console.log("转换后237",this.index)
 				this._callBack(this.index)
 			}
 		}
@@ -507,13 +526,11 @@ class Swiper{
 				if(this._defaultIndex <= -max){
 					this._defaultIndex = -max
 				}
-				//this._numericalConversion(this._defaultIndex)
 			}else{
 				this._defaultIndex-=1;
 				if(this._defaultIndex<=-this._length){
 					this._defaultIndex = 0
 				}
-				//this._numericalConversion(this._defaultIndex)
 			}
 			this._numericalConversion(this._defaultIndex)
 			speed*=Math.abs(Math.abs(oldIndex)-Math.abs(this._defaultIndex))
@@ -524,7 +541,6 @@ class Swiper{
 					if(this._defaultIndex <= -max){
 						this._defaultIndex = -1;
 						this._slideMove(this._defaultIndex*this._scaleSize);
-						//this._numericalConversion(this._defaultIndex)
 					}
 				}
 			})
@@ -565,8 +581,10 @@ class Swiper{
 		let list = this._children;
 		for (let i=0;i<length;i++) {
 			list[i].style.opacity = 0;
+			list[i].style["z-index"] = 0;
 		}
 		list[index].style.opacity = scale;
+		list[index].style["z-index"] = 1;
 		if(typeof(oldIndex)==='number'){
 			list[oldIndex].style.opacity = 1-scale;
 		}

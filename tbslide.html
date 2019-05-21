@@ -22,10 +22,8 @@
 			#root>div{
 				height: 500px;
 				width: 100%;
-				display: flex; 
 			}
 			#root>div>div{
-				 flex-shrink:0;
 				  height:  500px;
 				  width: 100%;
 				  line-height: 500px;
@@ -38,12 +36,14 @@
 				align-items: center;
 				display: block;
 				height: 500px;
+				max-width:100%;
 			}
+			
 		</style>
 	</head>
 	<body>
 		<div id="root">
-			<div id="list">
+			<div>
 				<div style="background: #21374B;"><img src="static/img/parcel.png"/></div>
 				<div style="background: #808080;"><img src="static/img/webpack.png"/></div>
 				<div style="background: #35495E;"><img src="static/img/vue.png"/></div>
@@ -60,13 +60,13 @@
 	</body>
 	<script>
 		window.onload = function(){
-			const swiper = new Swiper({
+			const swiper = new SmallSwiper({
 				root:"#root",
 				loop:true,
 				auto:false,
 				delayed:2000,
 				effect:"slide",
-				direction:"horizontal",//"horizontal""vertical"
+				direction:"vertical",//"horizontal""vertical"
 				index:0,//默认第一张
 				callBack(index){
 					console.log("html",index)
@@ -82,11 +82,6 @@
 					}
 				})(i)
 			})
-			const list = document.getElementById("root");
-			list.onclick = function(){
-				console.log(11111111111)
-			}
-			
 		}
 	</script>
 </html>

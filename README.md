@@ -1,5 +1,5 @@
 
-## 引用方式 1
+## Routine
 
 ```html
 
@@ -7,18 +7,19 @@
 
 ```
 
+
+## ES6
+
 ```javascript
-const Swiper = SmallSwiper.SmallSwiper;
+npm install small-swiper --save-dev
+
+import Swiper from "small-swiper"
+
 ```
 
-## 引用方式 2
-```javascript
-const { SmallSwiper } = SmallSwiper.SmallSwiper;
-console.log(SmallSwiper)
-```
 
+### Usage method
 
-### 具体使用
 ```html
 <div id="root">
 <div>
@@ -39,7 +40,8 @@ console.log(SmallSwiper)
 
 
 
-* 1，左右
+* 1.horizontal direction
+
 ```css
 #root{
 	height: 500px;
@@ -66,6 +68,7 @@ console.log(SmallSwiper)
 	align-items: center;
 	display: block;
 	height: 500px;
+	max-width:100%;
 }
 ```
 
@@ -78,11 +81,12 @@ window.onload = function(){
 		auto:false,
 		delayed:2000,
 		effect:"slide",
-		direction:"vertical",//"horizontal""vertical"
-		index:0,//默认第一张
+		direction:"vertical",
+		index:0,
+		disabledHand:false,
 		callBack(index){
 			console.log("html",index)
-			document.title = "我是第"+index+"页"
+			document.title = "I am"+index+"page"
 		}
 	})
 	const btnList = document.getElementById("btns").getElementsByTagName("button");
@@ -98,7 +102,7 @@ window.onload = function(){
 
 ```
 
-* 2，上下
+* 2.vertical direction
 
 ```css
 #root{
@@ -124,6 +128,7 @@ window.onload = function(){
 	align-items: center;
 	display: block;
 	height: 500px;
+	max-width:100%;
 }
 
 ```
@@ -137,18 +142,18 @@ window.onload = function(){
 		auto:false,
 		delayed:2000,
 		effect:"slide",
-		direction:"vertical",//"horizontal""vertical"
-		index:0,//默认第一张
+		direction:"vertical",
+		index:0,
 		callBack(index){
 			console.log("html",index);
-			document.title = "我是第"+index+"页"
+			document.title = "I am"+index+"page"
 		}
 	})
 }
 
 ```
 
-* 3，渐隐渐显
+* 3.Fade in and fade out
 
 ```css
 #root{
@@ -184,8 +189,8 @@ window.onload = function(){
 		effect:"fade",
 		loop:false,
 		auto:true,
-		direction:"horizontal",//"horizontal""vertical"
-		index:0,//默认第一张
+		direction:"horizontal",
+		index:0,
 		callBack:function(index){
 			console.log("html",index)
 		}

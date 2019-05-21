@@ -36,6 +36,7 @@
 				align-items: center;
 				display: block;
 				height: 500px;
+				max-width:100%;
 			}
 			
 		</style>
@@ -60,7 +61,6 @@
 	<script src="./../dist/SmallSwiper.umd.js"></script>
 	<script>
 		window.onload = function(){
-			const Swiper = SmallSwiper.SmallSwiper
 			const swiper = new Swiper({
 				root:document.querySelector("#root"),
 				loop:true,

@@ -15,18 +15,18 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-				filename: './fade.html',
-				template: './fade.html',
+				filename: './fadeIn.html',
+				template: './fadeIn.html',
 				inject: true,
 			}),
 		new HtmlWebpackPlugin({
-				filename: './上下slide.html',
-				template: './上下slide.html',
+				filename: './tbslide.html',
+				template: './tbslide.html',
 				inject: true,
 			}),
 		new HtmlWebpackPlugin({
-				filename: './左右slide.html',
-				template: './左右slide.html',
+				filename: './lrslide.html',
+				template: './lrslide.html',
 				inject: true,
 			}),
 		new FriendlyErrorsWebpackPlugin({

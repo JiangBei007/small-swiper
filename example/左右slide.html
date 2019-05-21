@@ -38,12 +38,13 @@
 				align-items: center;
 				display: block;
 				height: 500px;
+				max-width:100%;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="root">
-			<div>
+			<div id="list">
 				<div style="background: #21374B;"><img src="img/parcel.png"/></div>
 				<div style="background: #808080;"><img src="img/webpack.png"/></div>
 				<div style="background: #35495E;"><img src="img/vue.png"/></div>
@@ -61,10 +62,17 @@
 	<script src="./../dist/SmallSwiper.umd.js"></script>
 	<script>
 		window.onload = function(){
-			const Swiper = SmallSwiper.SmallSwiper
+			const list = document.getElementById("list").getElementsByTagName("div");
+			[].slice.call(list).forEach((dom,i)=>{
+				(function (i){
+					dom.onclick = function(){
+						console.log(i)
+					}
+				})(i)
+			})
 			const swiper = new Swiper({
 				root:document.querySelector("#root"),
-			
+				loop:true,
 			})
 			const btnList = document.getElementById("btns").getElementsByTagName("button");
 			
