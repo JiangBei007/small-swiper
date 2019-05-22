@@ -18,6 +18,10 @@
 				width: 100%;
 				overflow: hidden;
 				background: moccasin;
+				cursor: -webkit-grab;
+			}
+			#root:active{
+				cursor: -webkit-grabbing;
 			}
 			#root>div{
 				height: 500px;
@@ -79,7 +83,7 @@
 				index:0,//默认第一张
 				disabledHand:false,//禁止手动滑动
 				callBack(index){
-					//console.log("html",index)
+					console.log("html",index)
 					document.title = "我是第"+index+"页"
 				}
 			})
