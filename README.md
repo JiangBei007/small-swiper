@@ -30,10 +30,10 @@ import Swiper from "small-swiper"
 </div>
 </div>
 <div id="btns">
-	<button>点击切换到第0个</button>
-	<button>点击切换到第1个</button>
-	<button>点击切换到第2个</button>
-	<button>点击切换到第3个</button>
+	<button>to 0</button>
+	<button>to 1</button>
+	<button>to 2</button>
+	<button>to 3</button>
 </div>
 
 ```
@@ -201,3 +201,4 @@ window.onload = function(){
 [github地址](https://github.com/atJiangBei/small-swiper)
 [具体实现请看关联](https://atjiangbei.github.io/2019/04/04/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%BB%91%E5%8A%A8%E8%BD%AE%E6%92%AD%E5%9B%BE.html)
 [关联](https://atjiangbei.github.io/)
+[以此实现的vue组件](https://github.com/atJiangBei/solar-vue)

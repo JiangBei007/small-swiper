@@ -136,7 +136,7 @@ class Swiper {
 			} else {
 				this.defaultIndex = -index
 			}
-			//this.slideMove(this._defaultIndex * this._scaleSize)
+			this.slideMove(this.defaultIndex * this.scaleSize)
 			//this._numericalConversion(this._defaultIndex);
 		}
 

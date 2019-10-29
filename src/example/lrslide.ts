@@ -3,7 +3,7 @@ type swiper = Swiper
 
 const swiper:swiper = new Swiper({
 	root: document.getElementById('root'),
-	loop: false,
+	loop: true,
 	auto: false,
 	delayed: 2000,
 	effect: 'slide',
