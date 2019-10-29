@@ -13,8 +13,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --inline --progress --config ./config/webpack.dev.config.js",
-    "build": "webpack --inline --progress --config ./config/webpack.conf.build.js",
-    "umd:build": "vue-cli-service build --target lib --name SmallSwiper src/main.js"
+    "build": "webpack --inline --progress --config ./config/webpack.build.js",
+    "umd:build": "vue-cli-service build --target lib --name SmallSwiper src/main.js",
+    "rollup": "rollup -c"
   },
   "author": "",
   "license": "ISC",
@@ -25,13 +26,19 @@
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
+    "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.3",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
+    "rollup-plugin-json": "^4.0.0",
+    "typescript": "^3.6.4",
     "vue-cli": "^2.9.6",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.4.1"
+  },
+  "dependencies": {
+    "ts-loader": "^6.2.1"
   }
 }

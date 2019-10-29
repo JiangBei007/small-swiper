@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": true,
+        "allowJs": true
+    },
+    "include": [
+        "src/*",
+		"./index.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+	"references": [
+        { "path": "/src" }
+    ],
+	"files": [
+		
+	  ]
+}

@@ -54,36 +54,36 @@
 		</div>
 	</body>
 	<script>
-		window.onload = function(){
-			const swiper = new Swiper({
-				root:"#root",
-				effect:"fade",
-				loop:true,
-				auto:false,
-				direction:"horizontal",//"horizontal""vertical"
-				index:0,//默认第一张
-				callBack:function(index){
-					console.log("html",index)
-				}
-			})
-			const btnList = document.getElementById("btns").getElementsByTagName("button");
-			
-			[].slice.call(btnList).forEach((dom,i)=>{
-				(function (i){
-					dom.onclick = function(){
-						swiper.moveTo(i)
-					}
-				})(i)
-			})
-			const list = document.getElementById("list").getElementsByTagName("div");
-			[].slice.call(list).forEach((dom,i)=>{
-				(function (i){
-					dom.onclick = function(){
-						console.log(i)
-					}
-				})(i)
-			})
-			
-		}
+		// window.onload = function(){
+		// 	const swiper = new Swiper({
+		// 		root:document.querySelector("#root"),
+		// 		effect:"fade",
+		// 		loop:true,
+		// 		auto:false,
+		// 		direction:"horizontal",//"horizontal""vertical"
+		// 		index:0,//默认第一张
+		// 		callBack:function(index){
+		// 			console.log("html",index)
+		// 		}
+		// 	})
+		// 	const btnList = document.getElementById("btns").getElementsByTagName("button");
+		// 	
+		// 	[].slice.call(btnList).forEach((dom,i)=>{
+		// 		(function (i){
+		// 			dom.onclick = function(){
+		// 				swiper.moveTo(i)
+		// 			}
+		// 		})(i)
+		// 	})
+		// 	const list = document.getElementById("list").getElementsByTagName("div");
+		// 	[].slice.call(list).forEach((dom,i)=>{
+		// 		(function (i){
+		// 			dom.onclick = function(){
+		// 				console.log(i)
+		// 			}
+		// 		})(i)
+		// 	})
+		// 	
+		// }
 	</script>
 </html>

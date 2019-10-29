@@ -42,7 +42,6 @@ class Swiper{
 		this._auto = filter(options.auto);
 		this._delayed = options.delayed>=2000?options.delayed:2000;
 		this._effect = filterString(options.effect,['slide','fade'])
-		this._showDots = filter(options['show-dots']);
 		this._startTime = 0;
 		this._callBack = typeof(options.callBack)==='function'?options.callBack:function(){};
 		//this._endTime = 0;

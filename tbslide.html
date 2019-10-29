@@ -56,32 +56,31 @@
 			<button>点击切换到第2个</button>
 			<button>点击切换到第3个</button>
 		</div>
-		
 	</body>
 	<script>
-		window.onload = function(){
-			const swiper = new SmallSwiper({
-				root:"#root",
-				loop:true,
-				auto:false,
-				delayed:2000,
-				effect:"slide",
-				direction:"vertical",//"horizontal""vertical"
-				index:0,//默认第一张
-				callBack(index){
-					console.log("html",index)
-					document.title = "我是第"+index+"页"
-				}
-			})
-			const btnList = document.getElementById("btns").getElementsByTagName("button");
-			
-			[].slice.call(btnList).forEach((dom,i)=>{
-				(function (i){
-					dom.onclick = function(){
-						swiper.moveTo(i)
-					}
-				})(i)
-			})
-		}
+		// window.onload = function(){
+		// 	const swiper = new Swiper({
+		// 		root:document.querySelector("#root"),
+		// 		loop:false,
+		// 		auto:false,
+		// 		delayed:2000,
+		// 		effect:"slide",
+		// 		direction:"vertical",//"horizontal""vertical"
+		// 		index:0,//默认第一张
+		// 		callBack(index){
+		// 			console.log("html",index)
+		// 			document.title = "我是第"+index+"页"
+		// 		}
+		// 	})
+		// 	const btnList = document.getElementById("btns").getElementsByTagName("button");
+		// 	
+		// 	[].slice.call(btnList).forEach((dom,i)=>{
+		// 		(function (i){
+		// 			dom.onclick = function(){
+		// 				swiper.moveTo(i)
+		// 			}
+		// 		})(i)
+		// 	})
+		// }
 	</script>
 </html>

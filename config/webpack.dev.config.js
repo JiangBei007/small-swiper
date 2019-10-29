@@ -13,20 +13,24 @@ module.exports = {
 		filename: config.dev.filename,
 		path:config.dev.path,
 	},
+	module:config.module,
 	plugins: [
 		new HtmlWebpackPlugin({
-				filename: './fadeIn.html',
+				filename: 'fadeIn.html',
 				template: './fadeIn.html',
 				inject: true,
+				chunks: ['fadein']
 			}),
 		new HtmlWebpackPlugin({
-				filename: './tbslide.html',
+				filename: 'tbslide.html',
 				template: './tbslide.html',
 				inject: true,
+				chunks: ['tbslide']
 			}),
 		new HtmlWebpackPlugin({
-				filename: './lrslide.html',
+				filename: 'lrslide.html',
 				template: './lrslide.html',
+				chunks: ['lrslide'],
 				inject: true,
 			}),
 		new FriendlyErrorsWebpackPlugin({

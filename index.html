@@ -10,3 +10,37 @@
 		<div id="app"></div>
 	</body>
 </html>
+<script>
+	Function.prototype.uncurry = function() {
+		const that = this
+		return function() {
+			return Function.prototype.call.apply(that, arguments)
+		}
+	}
+
+	function say() {
+		return 'Hello' + ' ' + this.value + ',' + [].slice.call(arguments)
+	}
+
+	const sayUncurry = say.uncurry()
+	const valueString = sayUncurry({
+		value: 'word'
+	}, 'hehe', 'haha')
+	console.log(valueString)
+</script>
+<script>
+	function call(){
+		const arr = [...arguments]
+		const target = arr.shift()
+		ceshi.apply(target,arr)
+	}
+	function he() {
+		console.log(13)
+	}
+
+	function ha() {
+		console.log(this, arguments)
+		return Function.prototype.call.apply(this,arguments)
+	}
+	ha.call(he,'123')
+</script>
