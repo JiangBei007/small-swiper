@@ -1,9 +1,16 @@
 
+
+<p align="center"><img width="200" src="http://jiangbei.online/images/logo200.png"/></p>
+
+<h2 align="center">small-swiper</h2>
+<p  align="center">small-swiper 是一个javascript的轮播图的实现。同时支持移动端h5和PC端。当然，您也可以基于此库实现基于其它任何javascript框架的组件</p>
+<p  align="center">small-swiper is the implementation of a JavaScript carousel graph. It supports both mobile H5 and PC. Of course, you can also implement components based on any other JavaScript framework based on this library</p>
+
 ## Routine
 
 ```html
 
-<script src="./SmallSwiper.umd.js"></script>
+<script src="dist/index.min.js"></script>
 
 ```
 
@@ -22,18 +29,18 @@ import Swiper from "small-swiper"
 
 ```html
 <div id="root">
-<div>
-	<div style="background: #21374B;"><img src="img/parcel.png"/></div>
-	<div style="background: #808080;"><img src="img/webpack.png"/></div>
-	<div style="background: #35495E;"><img src="img/vue.png"/></div>
-	<div style="background: #0E0E0E;"><img src="img/react.png"/> </div>
-</div>
+	<div>
+		<div><img src="img/parcel.png"/></div>
+		<div><img src="img/webpack.png"/></div>
+		<div><img src="img/vue.png"/></div>
+		<div><img src="img/react.png"/> </div>
+	</div>
 </div>
 <div id="btns">
-	<button>to 0</button>
-	<button>to 1</button>
-	<button>to 2</button>
-	<button>to 3</button>
+	<button>To 0</button>
+	<button>To 1</button>
+	<button>To 2</button>
+	<button>To 3</button>
 </div>
 
 ```
@@ -42,33 +49,32 @@ import Swiper from "small-swiper"
 
 * 1.horizontal direction
 
-```css
+```scss
 #root{
 	height: 500px;
 	width: 100%;
 	overflow: hidden;
 	background: moccasin;
-}
-#root>div{
-	height: 500px;
-	width: 100%;
-	display: flex; 
-}
-#root>div>div{
-	 flex-shrink:0;
-	  height:  500px;
-	  width: 100%;
-	  line-height: 500px;
-	  text-align: center;
-	  display: flex;
-	  justify-content: center;
-}
-
-#root img{
-	align-items: center;
-	display: block;
-	height: 500px;
-	max-width:100%;
+	img{
+		align-items: center;
+		display: block;
+		height: 500px;
+		max-width:100%;
+	}
+	>div{
+		height: 500px;
+		width: 100%;
+		display: flex; 
+		>div{
+			flex-shrink:0;
+			height:  500px;
+			width: 100%;
+			line-height: 500px;
+			text-align: center;
+			display: flex;
+			justify-content: center;
+		}
+	}
 }
 ```
 
@@ -104,32 +110,32 @@ window.onload = function(){
 
 * 2.vertical direction
 
-```css
+```scss
 #root{
 	height: 500px;
 	width: 100%;
 	overflow: hidden;
 	background: moccasin;
-}
-#root>div{
-	height: 500px;
-	width: 100%;
-}
-#root>div>div{
-	  height:  500px;
-	  width: 100%;
-	  line-height: 500px;
-	  text-align: center;
-	  display: flex;
-	  justify-content: center;
+	img{
+		align-items: center;
+		display: block;
+		height: 500px;
+		max-width:100%;
+	}
+	>div{
+		height: 500px;
+		width: 100%;
+		>div{
+			height:  500px;
+			width: 100%;
+			line-height: 500px;
+			text-align: center;
+			display: flex;
+			justify-content: center;
+		}
+	}
 }
 
-#root img{
-	align-items: center;
-	display: block;
-	height: 500px;
-	max-width:100%;
-}
 
 ```
 
@@ -155,28 +161,28 @@ window.onload = function(){
 
 * 3.Fade in and fade out
 
-```css
+```scss
 #root{
 	height: 500px;
 	width: 100%;
 	overflow: hidden;
-}
-#root>div{
-	height: 500px;
-	width: 100%;
-	position: relative;
-}
-#root>div>div{
-	  height:  500px;
-	  width: 100%;
-	  position: relative;
-	  left: 0;
-	  top: 0;
-}
-#root img{
-	display: block;
-	height: 500px;
-	width: 100%;
+	img{
+		display: block;
+		height: 500px;
+		width: 100%;
+	}
+	>div{
+		height: 500px;
+		width: 100%;
+		position: relative;
+		>div{
+			height:  500px;
+			width: 100%;
+			position: relative;
+			left: 0;
+			top: 0;
+		}
+	}
 }
 
 ```
@@ -198,7 +204,10 @@ window.onload = function(){
 }
 ```
 
-[github地址](https://github.com/atJiangBei/small-swiper)
-[具体实现请看关联](https://atjiangbei.github.io/2019/04/04/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%BB%91%E5%8A%A8%E8%BD%AE%E6%92%AD%E5%9B%BE.html)
-[关联](https://atjiangbei.github.io/)
-[以此实现的vue组件](https://github.com/atJiangBei/solar-vue)
+[github地址](https://github.com/atJiangBei/small-swiper)  
+
+[具体实现请看关联](https://atjiangbei.github.io/2019/04/04/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%BB%91%E5%8A%A8%E8%BD%AE%E6%92%AD%E5%9B%BE.html)  
+
+[关联](https://atjiangbei.github.io/)  
+
+[以此实现的vue组件](https://github.com/atJiangBei/solar-vue)  

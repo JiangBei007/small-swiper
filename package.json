@@ -1,7 +1,7 @@
 {
 	"name": "small-swiper",
-	"version": "1.0.9",
-	"description": "swiper",
+	"version": "1.0.13",
+	"description": "swiper js javascript vue react angular",
 	"main": "dist/index.min.js",
 	"directories": {
 		"example": "example"
