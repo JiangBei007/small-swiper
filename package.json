@@ -1,6 +1,6 @@
 {
 	"name": "small-swiper",
-	"version": "1.0.13",
+	"version": "1.0.17",
 	"description": "swiper js javascript vue react angular",
 	"main": "dist/index.min.js",
 	"directories": {
@@ -38,7 +38,7 @@
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"html-webpack-plugin": "^3.2.0",
 		"rollup-plugin-json": "^4.0.0",
-		"typescript": "^3.6.4",
+		"typescript": "^3.7.2",
 		"vue-cli": "^2.9.6",
 		"vue-template-compiler": "^2.6.10",
 		"webpack": "^4.30.0",

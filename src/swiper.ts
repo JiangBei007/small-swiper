@@ -14,9 +14,11 @@ interface Options {
 }
 const fadeFloat: number = 0.05
 const speed: number = 50
-const time:Function = Date.now || function () {
-  return +new Date()
-}
+const time: Function =
+	Date.now ||
+	function() {
+		return +new Date()
+	}
 class Swiper {
 	private root: Element
 	private direction: direction
@@ -37,6 +39,11 @@ class Swiper {
 	private length: number
 	private scaleSize: number
 	private index: number
+	private will: boolean
+	private _start: ((event: Event) => void)
+	private _move: ((event: Event) => void)
+	private _end: ((event: Event) => void)
+	private _closeDefault: ((event: Event) => void)
 	constructor(options: Options) {
 		this.root = options.root
 		this.direction = options.direction
@@ -70,31 +77,38 @@ class Swiper {
 		if (this.auto) {
 			this.timer = this.setInterval()
 		}
-		const will = false
-		const _this = this
-		const slider = this.slider
-		slider.addEventListener('touchstart', ev => this.start(ev), will)
-		slider.addEventListener('touchmove', ev => this.move(ev), will)
-		slider.addEventListener('touchend', ev => this.end(ev), will)
-		slider.addEventListener('mousedown', ev => this.start(ev), will)
-		slider.addEventListener('mousemove', ev => this.move(ev), will)
-		slider.addEventListener('mouseup', ev => this.end(ev), will)
-		slider.addEventListener(
-			'click',
-			function(ev) {
-				const e = ev || event
-				if (_this.captureClick) {
-					//On the PC side, default events are disabled in MouseDown events
-					//For example, there are jump links in sliding elements, and if default events are not prohibited, jumps are made.
-					e.preventDefault()
-					//In the event capture phase,
-					//When the mouse slides
-					//Prohibit click events to extend inward
-					e.stopPropagation()
-				}
-			},
-			true
-		)
+		this.will = false
+		this._start = ev => {
+			this.start(ev)
+		}
+		this._move = ev => {
+			this.move(ev)
+		}
+		this._end = ev => {
+			this.end(ev)
+		}
+		this._closeDefault = ev => {
+			this.closeDefault(ev)
+		}
+		this.slider.addEventListener('touchstart', this._start, this.will)
+		this.slider.addEventListener('touchmove', this._move, this.will)
+		this.slider.addEventListener('touchend', this._end, this.will)
+		this.slider.addEventListener('mousedown', this._start, this.will)
+		this.slider.addEventListener('mousemove', this._move, this.will)
+		this.slider.addEventListener('mouseup', this._end, this.will)
+		this.slider.addEventListener('click', this._closeDefault, true)
+	}
+	private closeDefault(ev) {
+		const e = ev || event
+		if (this.captureClick) {
+			//On the PC side, default events are disabled in MouseDown events
+			//For example, there are jump links in sliding elements, and if default events are not prohibited, jumps are made.
+			e.preventDefault()
+			//In the event capture phase,
+			//When the mouse slides
+			//Prohibit click events to extend inward
+			e.stopPropagation()
+		}
 	}
 	private initFromEffect(effect: effect) {
 		switch (effect) {
@@ -212,8 +226,8 @@ class Swiper {
 		this.isTracking = false
 		if (this.disabledHandSlideing) return
 		const e = ev || event
-		const touches:Array<object> = e.changedTouches
-		const target= touches ? touches[0] : e
+		const touches: Array<object> = e.changedTouches
+		const target = touches ? touches[0] : e
 		let moved: number = this.direction === 'horizontal' ? target.clientX - this.startingPoint : target.clientY - this.startingPoint
 		const stopDuration: number = time() - this.startTime
 		const enter: boolean = Math.abs(moved) > this.scaleSize / 2 || stopDuration < 300
@@ -261,7 +275,7 @@ class Swiper {
 		}
 		if (enter) {
 			const oldIndex: number = this.defaultIndex
-			let bufferSpeed:number = speed/1.6;
+			let bufferSpeed: number = speed / 1.6
 			if (moved > 0) {
 				if (this.loop) {
 					this.defaultIndex += 1
@@ -305,7 +319,7 @@ class Swiper {
 			this.numericalConversion(this.defaultIndex)
 			const nowDistance = moved + oldIndex * this.scaleSize
 			const targetDistance = this.defaultIndex * this.scaleSize
-			this.startMove(nowDistance, targetDistance,bufferSpeed).then(() => {
+			this.startMove(nowDistance, targetDistance, bufferSpeed).then(() => {
 				if (loop) {
 					if (this.defaultIndex <= -max) {
 						//1，Solution in Cycle
@@ -326,7 +340,7 @@ class Swiper {
 				}
 			})
 		} else {
-			const bufferSpeed:number = speed/5;
+			const bufferSpeed: number = speed / 5
 			if (!this.loop) {
 				const distance = this.defaultIndex * this.scaleSize + moved
 				if (distance >= 0) {
@@ -339,7 +353,7 @@ class Swiper {
 			}
 			const nowDistance: number = this.defaultIndex * this.scaleSize + moved
 			const targetDistance: number = nowDistance - moved
-			this.startMove(nowDistance, targetDistance,bufferSpeed).then(() => {
+			this.startMove(nowDistance, targetDistance, bufferSpeed).then(() => {
 				if (this.auto) {
 					this.clear()
 					this.timer = this.setInterval()
@@ -403,7 +417,7 @@ class Swiper {
 				distance /= 3
 				this.slideMove(distance)
 			} else {
-				const max:number = this.length - 1
+				const max: number = this.length - 1
 				if (distance <= this.scaleSize * -max) {
 					moved /= 3
 					distance = this.scaleSize * -max + moved
@@ -588,9 +602,9 @@ class Swiper {
 		}
 	}
 	private startMove(nowDistance: number, targetDistance: number, speed: number | any = 30, index?: number, oldIndex?: number) {
-		let n:number = nowDistance
-		const t:number = targetDistance
-		let signal:Function
+		let n: number = nowDistance
+		const t: number = targetDistance
+		let signal: Function
 		const pro = new Promise(res => (signal = res))
 		const step = () => {
 			if (n < t) {
@@ -627,6 +641,16 @@ class Swiper {
 		}
 		window.requestAnimationFrame(step)
 		return pro
+	}
+	destroy() {
+		this.clear()
+		this.slider.removeEventListener('touchstart', this._start, this.will)
+		this.slider.removeEventListener('touchmove', this._move, this.will)
+		this.slider.removeEventListener('touchend', this._end, this.will)
+		this.slider.removeEventListener('mousedown', this._start, this.will)
+		this.slider.removeEventListener('mousemove', this._move, this.will)
+		this.slider.removeEventListener('mouseup', this._end, this.will)
+		this.slider.removeEventListener('click', this._closeDefault, true)
 	}
 }
 
