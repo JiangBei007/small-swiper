@@ -1,3 +1,4 @@
+import './utils/touchemulator.js'
 type direction = 'horizontal' | 'vertical'
 type effect = 'slide' | 'fade'
 type timer = null | number
@@ -93,10 +94,11 @@ class Swiper {
 		this.slider.addEventListener('touchstart', this._start, this.will)
 		this.slider.addEventListener('touchmove', this._move, this.will)
 		this.slider.addEventListener('touchend', this._end, this.will)
-		this.slider.addEventListener('mousedown', this._start, this.will)
-		this.slider.addEventListener('mousemove', this._move, this.will)
-		this.slider.addEventListener('mouseup', this._end, this.will)
-		this.slider.addEventListener('click', this._closeDefault, true)
+		this.slider.addEventListener('touchcancel', this._end, this.will)
+		// this.slider.addEventListener('mousedown', this._start, this.will)
+		// this.slider.addEventListener('mousemove', this._move, this.will)
+		// this.slider.addEventListener('mouseup', this._end, this.will)
+		// this.slider.addEventListener('click', this._closeDefault, true)
 	}
 	private closeDefault(ev) {
 		const e = ev || event
